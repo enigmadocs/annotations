@@ -1,0 +1,4 @@
+First Name,Last Name,Education Code,Education Code_definition,Gender
+John,Doe,3,Bachelor's degree,Male
+Jane,Doe,4,Graduate degree,Female
+,,4,Graduate degree,Female

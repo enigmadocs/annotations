@@ -1,0 +1,52 @@
+extract:
+  - step: Read local CSV file
+    action: extract.source.http.DownloadFiles
+    fetch:
+      - 'https://raw.githubusercontent.com/enigmadocs/parsers/master/annotations/annotations.csv'
+
+transform:
+  - step: Set schema for output table
+    action: transform.schema.SetSchema
+    fields:
+      - name: First Name
+        type: string
+      - name: Last Name
+        type: string
+      - name: Education Code
+        type: string
+      - name: Gender
+        type: string
+
+  - step: Extract fields from CSV file
+    action: extract.formats.CSV.ReadRecords
+    delimiter: ','
+
+  - step:
+    action: transform.strings.DisambiguateNulls
+    null_patterns:
+      - '^\s*$'
+    nulls:
+      - 'n/a'
+
+  - step:
+    action: debug.LogValues
+
+  - step: Add annotation
+    action: transform.annotations.AnnotateCodes
+    codes_path: ./codes.yaml
+    annotations:
+      - field: Education Code
+        key: attainment_code
+
+  - step:
+    action: debug.LogValues
+
+load:
+  - step:
+    action: load.SetTableName
+    table_name: annotations
+
+  - step: Output to local CSV file
+    action: load.OutputCSV
+    repository: .
+
