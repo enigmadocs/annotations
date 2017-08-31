@@ -42,10 +42,6 @@ transform:
     action: debug.LogValues
 
 load:
-  - step:
-    action: load.SetTableName
-    table_name: annotations
-
   - step: Output to local CSV file
     action: load.OutputCSV
     repository: .
