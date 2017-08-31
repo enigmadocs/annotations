@@ -2,7 +2,7 @@ extract:
   - step: Read local CSV file
     action: extract.source.http.DownloadFiles
     fetch:
-      - 'https://raw.githubusercontent.com/enigmadocs/parsers/master/annotations/annotations.csv'
+      - 'https://raw.githubusercontent.com/enigmadocs/annotations/master/annotations.csv'
 
 transform:
   - step: Set schema for output table
